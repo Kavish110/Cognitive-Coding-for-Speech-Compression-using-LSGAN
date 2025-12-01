@@ -90,62 +90,6 @@ python scripts/prep_librispeech.py \
 
 This creates JSON manifests listing all audio files.
 
-## Configuration
-
-Edit `configs/default.yaml` to customize training:
-
-```yaml
-data:
-  sample_rate: 16000           # Audio sample rate (Hz)
-  segment_seconds: 2.0         # Segment length for training
-  train_manifest: data/librispeech_100h/train.json
-
-model:
-  enc:
-    short:                      # Short-context encoder (10ms)
-      gru_hidden: 64
-      conv_kernel: [10, 8, 4, 4, 4]
-      downsample: [5, 4, 2, 2, 2]
-      hop_ms: 10
-      delta_step: 0.05
-    long:                       # Long-context encoder (40ms)
-      gru_hidden: 64
-      conv_kernel: [4, 4, 4]
-      downsample: [2, 2, 2]
-      hop_ms: 40
-      delta_step: 0.08
-  
-  dec:
-    top:                        # Top-level decoder (long→short upsampling)
-      deconv_kernel: [4, 4, 4]
-      upsample: [2, 2, 2]
-      start_channels: 256
-    low:                        # Low-level decoder (short→waveform upsampling)
-      deconv_kernel: [10, 8, 8, 4]
-      upsample: [5, 4, 4, 2]
-      start_channels: 128
-
-train:
-  total_steps: 100             # Training iterations (increase for longer training)
-  batch_size: 4                # Batch size
-  lr: 2.5e-4                   # Learning rate
-  log_every: 100               # Log metrics every N steps
-  ckpt_every: 2000             # Save checkpoint every N steps
-  grad_clip: 5.0               # Gradient clipping max norm
-  mel:                          # Mel-spectrogram loss config
-    n_fft: 1024
-    hop_length: 256
-    win_length: 1024
-    n_mels: 80
-
-loss:
-  lambda:                       # Loss weights (tune for your use case)
-    adv: 1.0                    # Adversarial loss weight
-    fm: 2.0                     # Feature matching weight
-    mel: 50.0                   # Mel reconstruction (increase for quality)
-    cc_short: 10.0              # Short-context matching
-    cc_long: 10.0               # Long-context matching
-```
 
 ## Training
 
@@ -343,43 +287,6 @@ cognitive_speech_compression/
      lr: 5.0e-4  # From 2.5e-4
    ```
 
-3. **Skip visualizations** (comment out plot calls in train.py)
-
-### For Debugging
-1. Set `total_steps: 10` for quick test
-2. Use `batch_size: 1` to isolate issues
-3. Check `plots/waveform_comparison.png` for reconstruction quality
-4. Monitor mel loss primarily (should decrease)
-
-## Troubleshooting
-
-### RuntimeError: CUDA out of memory
-- Reduce `batch_size` in config
-- Reduce `segment_seconds` (shorter audio segments)
-- Use CPU: `device = 'cpu'`
-
-### RuntimeError: Given groups=1, weight of size [...], expected input [...] to have X channels
-- Waveform shape mismatch → check `wav_collate` in datasets.py
-- Solution: Already fixed in this codebase
-
-### ModuleNotFoundError: No module named 'matplotlib'
-```bash
-pip install matplotlib
-```
-
-### Audio quality is poor
-- Check mel loss is decreasing (if not, increase `lambda['mel']`)
-- Train longer (more steps)
-- Check that CC losses (cc_s, cc_l) are small
-- Listen to waveform comparison plot
-
-### Training is unstable (losses oscillating)
-- Reduce learning rate: `lr: 1.0e-4`
-- Reduce gradient clip: `grad_clip: 1.0`
-- Increase batch size (if VRAM allows)
-
-## Performance Metrics
-
 ### Compression Efficiency
 - **Input bitrate**: 16kHz × 16-bit = 256 kbps
 - **Output bitrate**: 64D × (10ms stride)⁻¹ × 1-bit = ~6.4 kbps (estimated)
@@ -413,6 +320,7 @@ pip install matplotlib
 ---
 
 **Last Updated**: November 30, 2025
+
 
 
 
