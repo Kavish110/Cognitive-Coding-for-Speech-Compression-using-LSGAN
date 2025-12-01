@@ -413,7 +413,5 @@ pip install matplotlib
 ---
 
 **Last Updated**: November 30, 2025
-**Status**: ✅ Ready for training and inference
-**Python Version**: 3.9+ (tested on 3.12)
-**PyTorch Version**: 2.2+
+
 
