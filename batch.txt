@@ -1,0 +1,21 @@
+# 1) create manifests for your LibriSpeech 100h subset
+python scripts/prep_librispeech.py --root /path/to/LibriSpeech/train-clean-100 --out data/librispeech_100h/train.json
+python scripts/prep_librispeech.py --root /path/to/LibriSpeech/dev-clean       --out data/librispeech_100h/val.json
+
+# 2) train
+python scripts/train.py --cfg configs/default.yaml
+
+# 3) inference
+python scripts/infer.py --wav data/samples/your.wav --ckpt checkpoints/codec_step950000.pt --out recon.wav
+
+
+# sanity pass (quick shape/loss check)
+python tests/sanity_check.py --cfg configs/default.yaml
+
+# train
+python scripts/train.py
+
+# infer (after you have a checkpoint)
+python scripts/infer.py --wav data/samples/your.wav \
+                        --ckpt checkpoints/codec_step950000.pt \
+                        --out recon.wav
