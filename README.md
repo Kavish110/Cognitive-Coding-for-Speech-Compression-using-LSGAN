@@ -393,6 +393,15 @@ pip install matplotlib
 
 *Actual numbers depend on training duration and hyperparameters*
 
+
+
+## Citation
+
+- R. Lotfidereshgi and P. Gournay, "Practical Cognitive Speech Compression," *2022 IEEE Data Science and Learning Workshop (DSLW)*, Singapore, Singapore, 2022, pp. 1-6, doi: 10.1109/DSLW53931.2022.9820506.  
+
+
+- R. Lotfidereshgi and P. Gournay, "Cognitive Coding Of Speech," *ICASSP 2022 - 2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)*, Singapore, Singapore, 2022, pp. 7772-7776, doi: 10.1109/ICASSP43922.2022.9747914.
+
 ## References
 
 - **Adversarial Training**: Goodfellow et al., 2014
@@ -400,35 +409,6 @@ pip install matplotlib
 - **Feature Matching**: Improved Techniques for Training GANs (Salimans et al., 2016)
 - **Speech Codecs**: Opus (Vos et al., 2013), EVS (3GPP)
 
-## Citation
-
-```bibtex
-@project{cognitive_speech_compression,
-  title={Cognitive Speech Compression with Dual-Context Features},
-  author={Your Name},
-  year={2025},
-  school={Arizona State University},
-  course={SHS 598 - Advanced Speech Processing}
-}
-```
-
-## License
-
-Educational use only. Part of ASU SHS 598 course project.
-
-## Contributors
-
-- **Project**: Cognitive Speech Compression Codec
-- **Course**: SHS 598 - Advanced Speech Processing, Fall 2025
-- **Institution**: Arizona State University
-
-## Support
-
-For issues or questions:
-1. Check `issues.txt` for known problems
-2. Review console output for error messages
-3. Check `OUTPUT_DESCRIPTION.md` for detailed output explanation
-4. Verify dataset paths and file permissions
 
 ---
 
@@ -436,3 +416,4 @@ For issues or questions:
 **Status**: ✅ Ready for training and inference
 **Python Version**: 3.9+ (tested on 3.12)
 **PyTorch Version**: 2.2+
+
