@@ -9,7 +9,7 @@ A neural codec for speech compression using contextual features and adversarial 
 
 This is a speech compression codec that:
 - **Compresses** speech to low bitrates while maintaining quality
-- **Extracts** short-term (10ms) and long-term (40ms) contextual features
+- **Extracts** short-term and long-term contextual features
 - **Reconstructs** speech using a decoder with multi-resolution upsampling
 - **Trains** with adversarial loss + perceptual losses (mel, feature matching, CC representation)
 
@@ -413,5 +413,6 @@ pip install matplotlib
 ---
 
 **Last Updated**: November 30, 2025
+
 
 
